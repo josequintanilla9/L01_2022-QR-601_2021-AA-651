@@ -36,6 +36,56 @@ namespace L01_2022_QR_601_2021_AA_651.Controllers
             return Ok(listadoClientes);
         }
 
+
+        /// <summary>
+        /// EndPoint que retorna el lisado de todos los clientes existentes 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetById/{id}")]
+
+        public IActionResult Get(int id)
+        {
+            Clientes? Clientes = (from e in _restauranteContexto.Clientes
+                                              select e).FirstOrDefault();
+
+            if (Clientes  == null)
+            {
+                return NotFound();
+            }
+            return Ok(Clientes);
+        }
+
+
+
+        /// <summary>
+        /// EndPoint que retorna el lisado de todos los clientes existentes 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Find/{filtro}")]
+
+        public IActionResult FindByDescription(string filtro)
+        {
+            Clientes? Clientes = (from e in _restauranteContexto.Clientes
+                                  where e.direccion.Contains(filtro)
+                                  select e).FirstOrDefault();
+
+            if (Clientes == null)
+            {
+                return NotFound();
+            }
+            return Ok(Clientes);
+        }
+
+
+
+
+
+
+
+
+
     }
 
 
